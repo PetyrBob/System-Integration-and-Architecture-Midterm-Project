@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Management - Petstore API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        input {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            width: 300px;
+        }
+        .pet-container {
+            margin-top: 20px;
+        }
+        .pet-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .update-form {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pet Management - Petstore API</h1>
+
+    <div class="pet-container" id="petContainer"></div>
+
+    <h3>Recently Adopted Pets</h3>
+    <div id="recentlyAdoptedPets" class="pet-container"></div>
+
+    <div class="update-form" id="updateForm">
+        <h3>Update Pet</h3>
+        <input type="text" id="updatePetId" placeholder="Pet ID" readonly />
+        <input type="text" id="updatePetName" placeholder="Pet Name" />
+        <input type="text" id="updatePetStatus" placeholder="Pet Status" />
+        <button onclick="updatePet()">UPDATE Pet</button>
+        <button onclick="cancelUpdate()">CANCEL</button> <!-- Cancel button -->
+    </div>
+
+    <h3>GET Pet by ID</h3>
+    <input type="text" id="getPetId" placeholder="Enter Pet ID" />
+    <button onclick="fetchPetById()">GET Pet</button>
+    <div id="petOutput"></div>
+
+    <h3>POST Create Pet</h3>
+    <input type="text" id="newPetName" placeholder="Pet Name" />
+    <input type="text" id="newPetStatus" placeholder="Pet Status" />
+    <button onclick="createPet()">POST Create Pet</button>
+
+    <h3>ADOPT Pet</h3>
+    <input type="text" id="adoptPetId" placeholder="Enter Pet ID to Adopt" />
+    <button onclick="adoptPet()">ADOPT Pet</button>
+    <div id="adoptionOutput"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
