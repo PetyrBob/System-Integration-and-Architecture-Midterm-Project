@@ -36,6 +36,48 @@ function fetchRecentlyAdoptedPets() {
         });
 }
 
+// Function to fetch a pet by its ID
+function fetchPetById() {
+    const petId = document.getElementById('getPetId').value;
+    const apiUrl = `https://petstore.swagger.io/v2/pet/${petId}`;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            displaySinglePet(data);
+        })
+        .catch(error => {
+            alert('GET Pet by ID Error: ' + error.message);
+        });
+}
+
+// Function to display a single pet fetched by ID
+function displaySinglePet(pet) {
+    const singlePetContainer = document.getElementById('singlePetContainer');
+    singlePetContainer.innerHTML = ''; // Clear previous data
+
+    if (!pet || !pet.id) {
+        singlePetContainer.innerHTML = '<p>Pet not found.</p>';
+        return;
+    }
+
+    const petItem = document.createElement('div');
+    petItem.className = 'pet-item';
+    petItem.innerHTML = `
+        <strong>Pet ID:</strong> ${pet.id}<br>
+        <strong>Name:</strong> ${pet.name}<br>
+        <strong>Status:</strong> ${pet.status}<br>
+        <button onclick="populateUpdateForm(${pet.id}, '${pet.name}', '${pet.status}')">Update</button>
+        <button onclick="deletePet(${pet.id})">Delete</button>
+    `;
+    singlePetContainer.appendChild(petItem);
+}
+
 // Function to display pets in the pet container
 function displayPets(pets, title, containerId = 'petContainer') {
     const petContainer = document.getElementById(containerId);
@@ -133,6 +175,33 @@ function deletePet(id) {
     })
     .catch(error => {
         alert('DELETE Pet Error: ' + error.message);
+    });
+}
+
+// Function to create a pet in the API
+function createPet() {
+    const petData = {
+        id: Math.floor(Math.random() * 1000), // Generate a random ID
+        name: document.getElementById('newPetName').value,
+        status: document.getElementById('newPetStatus').value,
+    };
+
+    const postUrl = 'https://petstore.swagger.io/v2/pet';
+
+    fetch(postUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(petData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Pet Created: ' + JSON.stringify(data, null, 2));
+        fetchAllPets(); // Refresh the pet list
+    })
+    .catch(error => {
+        alert('POST Pet Error: ' + error.message);
     });
 }
 
