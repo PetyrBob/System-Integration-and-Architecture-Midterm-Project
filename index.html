@@ -3,69 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Management - Petstore API</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Pet Management</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        input {
-            display: block;
-            margin: 5px 0;
-            padding: 10px;
-            width: 300px;
-        }
-        .pet-container {
-            margin-top: 20px;
-        }
         .pet-item {
-            border: 1px solid #ccc;
+            margin: 10px 0;
             padding: 10px;
-            margin: 5px 0;
+            border: 1px solid #ccc;
         }
         .update-form {
-            display: none;
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Pet Management - Petstore API</h1>
-    <h3>GET Pet by ID</h3>
-    <input type="text" id="getPetId" placeholder="Enter Pet ID" />
-    <button onclick="fetchPetById()">GET Pet</button>
-    <div id="petOutput"></div>
 
-    <h3>POST Create Pet</h3>
-    <input type="text" id="newPetName" placeholder="Pet Name" />
-    <input type="text" id="newPetStatus" placeholder="Pet Status" />
-    <button onclick="createPet()">POST Create Pet</button>
+    <h2>Available Pets</h2>
+    <div id="petContainer"></div>
 
-    <h3>ADOPT Pet</h3>
-    <input type="text" id="adoptPetId" placeholder="Enter Pet ID to Adopt" />
-    <button onclick="adoptPet()">ADOPT Pet</button>
-    <div id="adoptionOutput"></div>
+    <h2>Recently Adopted Pets</h2>
+    <div id="recentlyAdoptedPets"></div>
 
-    <div class="pet-container" id="petContainer"></div>
+    <!-- Form to create a new pet -->
+    <h3>Create a Pet</h3>
+    <input type="text" id="newPetName" placeholder="Pet Name">
+    <input type="text" id="newPetStatus" placeholder="Pet Status">
+    <button onclick="createPet()">Create Pet</button>
 
-    <h3>Recently Adopted Pets</h3>
-    <div id="recentlyAdoptedPets" class="pet-container"></div>
+    <!-- Form to adopt a pet -->
+    <h3>Adopt a Pet</h3>
+    <input type="text" id="adoptPetId" placeholder="Pet ID to Adopt">
+    <button onclick="adoptPet()">Adopt Pet</button>
 
-    <div class="update-form" id="updateForm">
+    <!-- Form to fetch a pet by ID -->
+    <h3>Get Pet by ID</h3>
+    <input type="text" id="getPetId" placeholder="Enter Pet ID">
+    <button onclick="fetchPetById()">Get Pet</button>
+    <div id="singlePetContainer"></div> <!-- Display a single pet by ID -->
+
+    <!-- Update form (hidden by default) -->
+    <div class="update-form" id="updateForm" style="display:none;">
         <h3>Update Pet</h3>
         <input type="text" id="updatePetId" placeholder="Pet ID" readonly />
         <input type="text" id="updatePetName" placeholder="Pet Name" />
         <input type="text" id="updatePetStatus" placeholder="Pet Status" />
-        <button onclick="updatePet()">UPDATE Pet</button>
-        <button onclick="cancelUpdate()">CANCEL</button> <!-- Cancel button -->
+        <button onclick="updatePet()">Update Pet</button>
+        <button onclick="cancelUpdate()">Cancel</button> <!-- Cancel button -->
     </div>
 
     <script src="script.js"></script>
+
 </body>
 </html>
