@@ -106,6 +106,7 @@ input::placeholder {
     background-color: #444;
     border-radius: 5px;
 }
+
 h3 + input,
 h3 + button {
     margin-top: 10px; 
