@@ -1,4 +1,3 @@
-// Function to fetch all pets from the API
 function fetchAllPets() {
     const apiUrl = 'https://petstore.swagger.io/v2/pet/findByStatus?status=available';
 
@@ -17,7 +16,6 @@ function fetchAllPets() {
         });
 }
 
-// Function to fetch recently adopted pets
 function fetchRecentlyAdoptedPets() {
     const apiUrl = 'https://petstore.swagger.io/v2/pet/findByStatus?status=sold';
 
@@ -36,7 +34,6 @@ function fetchRecentlyAdoptedPets() {
         });
 }
 
-// Function to fetch a pet by its ID
 function fetchPetById() {
     const petId = document.getElementById('getPetId').value;
     const apiUrl = `https://petstore.swagger.io/v2/pet/${petId}`;
@@ -56,10 +53,9 @@ function fetchPetById() {
         });
 }
 
-// Function to display a single pet fetched by ID
 function displaySinglePet(pet) {
     const singlePetContainer = document.getElementById('singlePetContainer');
-    singlePetContainer.innerHTML = ''; // Clear previous data
+    singlePetContainer.innerHTML = ''; 
 
     if (!pet || !pet.id) {
         singlePetContainer.innerHTML = '<p>Pet not found.</p>';
@@ -78,11 +74,9 @@ function displaySinglePet(pet) {
     singlePetContainer.appendChild(petItem);
 }
 
-// Function to display pets in the pet container
 function displayPets(pets, title, containerId = 'petContainer') {
     const petContainer = document.getElementById(containerId);
-    petContainer.innerHTML = ''; // Clear previous pets
-
+    petContainer.innerHTML = ''; 
     if (pets.length === 0) {
         petContainer.innerHTML = `<p>No ${title.toLowerCase()} found.</p>`;
         return;
@@ -102,28 +96,23 @@ function displayPets(pets, title, containerId = 'petContainer') {
     });
 }
 
-// Function to populate the update form
 function populateUpdateForm(id, name, status) {
     document.getElementById('updatePetId').value = id;
     document.getElementById('updatePetName').value = name;
     document.getElementById('updatePetStatus').value = status;
 
-    // Show the update form
+  
     document.getElementById('updateForm').style.display = 'block';
 }
 
-// Function to cancel the update operation
 function cancelUpdate() {
-    // Hide the update form
     document.getElementById('updateForm').style.display = 'none';
 
-    // Clear the input fields
     document.getElementById('updatePetId').value = '';
     document.getElementById('updatePetName').value = '';
     document.getElementById('updatePetStatus').value = '';
 }
 
-// Function to update a pet in the API
 function updatePet() {
     const id = document.getElementById('updatePetId').value;
     const petData = {
@@ -144,10 +133,10 @@ function updatePet() {
     .then(response => response.json())
     .then(data => {
         alert('Pet Updated: ' + JSON.stringify(data, null, 2));
-        fetchAllPets(); // Refresh the pet list
-        fetchRecentlyAdoptedPets(); // Refresh the recently adopted pets list
+        fetchAllPets(); 
+        fetchRecentlyAdoptedPets(); 
 
-        // Hide the update form after updating
+  
         cancelUpdate();
     })
     .catch(error => {
@@ -155,7 +144,6 @@ function updatePet() {
     });
 }
 
-// Function to delete a pet in the API
 function deletePet(id) {
     const deleteUrl = `https://petstore.swagger.io/v2/pet/${id}`;
 
@@ -168,7 +156,7 @@ function deletePet(id) {
     .then(response => {
         if (response.ok) {
             alert(`Pet with ID ${id} has been deleted.`);
-            fetchAllPets(); // Refresh the pet list
+            fetchAllPets(); 
         } else {
             throw new Error('Failed to delete the pet.');
         }
@@ -178,10 +166,9 @@ function deletePet(id) {
     });
 }
 
-// Function to create a pet in the API
 function createPet() {
     const petData = {
-        id: Math.floor(Math.random() * 1000), // Generate a random ID
+        id: Math.floor(Math.random() * 1000), 
         name: document.getElementById('newPetName').value,
         status: document.getElementById('newPetStatus').value,
     };
@@ -198,19 +185,18 @@ function createPet() {
     .then(response => response.json())
     .then(data => {
         alert('Pet Created: ' + JSON.stringify(data, null, 2));
-        fetchAllPets(); // Refresh the pet list
+        fetchAllPets(); 
     })
     .catch(error => {
         alert('POST Pet Error: ' + error.message);
     });
 }
 
-// Function to adopt a pet (change status to 'sold')
 function adoptPet() {
     const id = document.getElementById('adoptPetId').value;
     const petData = {
         id: parseInt(id),
-        status: 'sold' // Change status to 'sold'
+        status: 'sold' 
     };
 
     const adoptUrl = `https://petstore.swagger.io/v2/pet`;
@@ -231,16 +217,16 @@ function adoptPet() {
     })
     .then(data => {
         alert(`Pet with ID "${id}" has been adopted!`);
-        fetchAllPets(); // Refresh the pet list
-        fetchRecentlyAdoptedPets(); // Refresh the recently adopted pets list
+        fetchAllPets(); 
+        fetchRecentlyAdoptedPets(); 
     })
     .catch(error => {
         alert('ADOPT Pet Error: ' + error.message);
     });
 }
 
-// Automatically fetch all pets and recently adopted pets when the page loads
+
 window.onload = function() {
     fetchAllPets();
-    fetchRecentlyAdoptedPets(); // Fetch recently adopted pets
+    fetchRecentlyAdoptedPets(); 
 };
